@@ -1,95 +1,54 @@
-# Contributing to Popper.js
+# Contributing to the jQuery Validation Plugin
 
-## Report bugs
+## Reporting an Issue
 
-If you find a bug, please, try to isolate the specific case and provide a fiddle on CodePen or JSFiddle to make it easy to reproduce the problem and help others finding a solution.
-You can use [this CodePen](http://codepen.io/FezVrasta/pen/wGqJEz) which already includes Popper.js.
+1. Make sure the problem you're addressing is reproducible.
+2. Use https://jsbin.com or https://jsfiddle.net to provide a test page.
+3. Indicate what browsers the issue can be reproduced in. **Note: IE Compatibilty mode issues will not be addressed. Make sure you test in a real browser!**
+4. What version of the plug-in is the issue reproducible in. Is it reproducible after updating to the latest version.
 
-If your issue is not about a bug, please make sure to consider posting on StackOverflow instead.
+Documentation issues are also tracked at the [jQuery Validation](https://github.com/jquery-validation/jquery-validation/issues) issue tracker.
+Pull Requests to improve the docs are welcome at the [jQuery Validation docs](https://github.com/jquery-validation/validation-content) repository, though.
 
-Feature requests are welcome!
+**IMPORTANT NOTE ABOUT EMAIL VALIDATION**. As of version 1.12.0 this plugin is using the same regular expression that the [HTML5 specification suggests for browsers to use](https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address). We will follow their lead and use the same check. If you think the specification is wrong, please report the issue to them. If you have different requirements, consider [using a custom method](http://jqueryvalidation.org/jQuery.validator.addMethod/).
+In case you need to adjust the built-in validation regular expression patterns, please [follow the documentation](http://jqueryvalidation.org/jQuery.validator.methods/).
 
-## Setup
+## Contributing code
 
-Run `yarn` to install the needed dependencies.
+Thanks for contributing! Here's a few guidelines to help your contribution get landed.
 
-Note that `npm` is not supported because this projects makes use of the Yarn workspaces.
+1. Make sure the problem you're addressing is reproducible. Use jsbin.com or jsfiddle.net to provide a test page.
+2. Follow the [jQuery style guide](http://contribute.jquery.com/style-guides/js)
+3. Add or update unit tests along with your patch. Run the unit tests in at least one browser (see below).
+4. Run `grunt` (see below) to check for linting and a few other issues.
+5. Describe the change in your commit message and reference the ticket, like this: "Demos: Fixed delegate bug for dynamic-totals demo. Fixes #51". If you're adding a new localization file, use something like this: "Localization: Added croatian (HR) localization"
 
-## Developing
+## Build setup
 
-The repository is a monorepo managed by [Lerna](https://github.com/lerna/lerna), this makes it
-possible to manage multiple projects on the same repository.
+1. Install [NodeJS](http://nodejs.org).
+2. Install the Grunt CLI by running `npm install -g grunt-cli`. More details are available on their website http://gruntjs.com/getting-started.
+3. Install the NPM dependencies by running `npm install`.
+4. The build can now be called by running `grunt`.
 
-In our case, the main projects are `popper` and `tooltip`, which are the home of Popper.js and Tooltip.js  
-All our packages are stored in the `packages/` folder.
+## Creating a new Additional Method
 
+If you've wrote custom methods that you'd like to contribute to additional-methods.js:
 
-### Adopt an issue
+1. Create a branch
+2. Add the method as a new file in `src/additional`
+3. (Optional) Add translations to `src/localization`
+4. Send a pull request to the master branch.
 
-All the issues, if not assigned to someone, can be adopted by anyone. Just make sure to comment on
-the issue to let know other users about your intention to work on it.  
-Also, remember to comment again in case you end up abandoning the issue.
+## Unit Tests
 
-Each issue has a `DIFFICULTY: *` label to help you pick the one with the difficulty level adapt to you.  
-Additionally, check out the `PRIORITY: *` label to see which issues should take precedence over the others.
-If possible, prefer issues with an higher priority, but if you want to adopt an issue with lower priority,
-it's not a problem!
+To run unit tests, just open `test/index.html` within your browser. Make sure you ran `npm install` before so all required dependencies are available.
+Start with one browser while developing the fix, then run against others before committing. Usually latest Chrome, Firefox, Safari and Opera and a few IEs.
 
-Issues with `NEEDS: CI test` need a PR that integrates a test in the test suite to reproduce the bug,
-this is very useful because it allows other developers to try to fix the bug having a feedback.
+## Documentation
 
+Please report documentation issues at the [jQuery Validation](https://github.com/jquery-validation/jquery-validation/issues) issue tracker.
+In case your pull request implements or changes public API it would be a plus you would provide a pull request against the [jQuery Validation docs](https://github.com/jquery-validation/validation-content) repository.
 
-### Style conventions
+## Linting
 
-You don't have to worry about code style conventions, [prettier](https://github.com/prettier/prettier)
-will automatically format your code once you commit your changes.
-
-### Test
-
-We strive to keep the code coverage as high as possible, but above all, we want to avoid
-to introduce or reintroduce bugs in our code base.
-
-For this reason, every time a code change is made, we must make sure that a test is covering
-the code we just changed.  
-If we fix a bug, we add a test to avoid that this bug pops up again in the future.
-
-To help us with this process, we have a karma + jasmine environment to test Popper.js and Tooltip.js
-
-The tests are located in the `tests/` folder of the two projects. (e.g. `packages/popper/tests/`)
-
-
-```bash
-# You can run all the repositories tests running
-yarn test
-
-# or a single project's tests with 
-yarn test --scope=popper.js # or tooltip.js
-```
-
-If you want to run the tests in watch mode:
-
-```bash
-# You can run all the repositories tests running
-yarn test:dev
-
-# or a single project's tests with 
-yarn test:dev --scope=popper.js # or tooltip.js
-```
-
-Do you want to test your changes against all the supported browsers? Feel free to send a PR
-and your changes will get automatically tested.
-
-
-### Build
-
-To create a new release run:
-
-```bash
-# to build both projects
-yarn build 
-
-# or to build a single project
-yarn build --scope=popper.js # or tooltip.js
-```
-
-You can also build and watch for changes to automatically refresh the build using the `--watch` option.
+To run JSHint and other tools, use `grunt`.
